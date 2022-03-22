@@ -17,7 +17,9 @@ describe('Testa se página contém informações sobre a Pokedex ', () => {
     renderWithRouter(<App />);
     const aboutLink = screen.getByRole('link', { name: /About/i });
     userEvent.click(aboutLink);
-    const fstP = await screen.findByText(/This application/i);
+    const text1 = 'This application simulates a Pokédex'
+    + ', a digital encyclopedia containing all Pokémons';
+    const fstP = await screen.findByText(text1);
     const sndP = await screen.findByText(/One can/i);
     expect(fstP).toBeInTheDocument();
     expect(sndP).toBeInTheDocument();
