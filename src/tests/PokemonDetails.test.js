@@ -86,7 +86,7 @@ describe('Teste se existe na página uma seção com os mapas contendo as '
     const { history } = renderWithRouter(<App />);
     history.push(pikachuDetails);
     const linkToFavorites = screen.getByRole('link', { name: /Favorite Pokémons/i });
-    const favoriteCheckbox = screen
+    let favoriteCheckbox = screen
       .getByRole('checkbox', { name: /Pokémon Favoritado\?/i });
     userEvent.click(favoriteCheckbox);
     expect(favoriteCheckbox).toBeChecked();
@@ -98,11 +98,13 @@ describe('Teste se existe na página uma seção com os mapas contendo as '
     const details = screen.getByRole('link', { name: /More details/i });
     userEvent.click(details);
 
+    favoriteCheckbox = screen
+      .getByRole('checkbox', { name: /Pokémon Favoritado\?/i });
     userEvent.click(favoriteCheckbox);
     expect(favoriteCheckbox).not.toBeChecked();
-    // userEvent.click(linkToFavorites);
+    userEvent.click(linkToFavorites);
 
-    // const noFavoriteFound = screen.getByText(/No favorite pokemon found/i);
-    // expect(noFavoriteFound).toBeInTheDocument();
+    const noFavoriteFound = screen.getByText(/No favorite pokemon found/i);
+    expect(noFavoriteFound).toBeInTheDocument();
   });
 });
